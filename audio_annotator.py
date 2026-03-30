@@ -13,8 +13,6 @@ import crepe_inference_parallel
 
 from google.cloud import storage
 
-
-
 class AudioAnnotator:
     def __init__(self, sample_rate=44100, hop_length=1, win_length=1024, device="cpu"):
         self.sample_rate = sample_rate
@@ -127,16 +125,15 @@ def process_bucket(input_bucket_name, input_prefix, output_bucket_name):
                 os.remove(output_path)
 
 
-if __name__ == "__main__":
+def process_gs_bucket():
     process_bucket(
-        input_bucket_name="your-input-bucket",
-        input_prefix="your/folder/",
-        output_bucket_name="your-output-bucket"
+        input_bucket_name="bucket_name",
+        input_prefix="folder_name",
+        output_bucket_name="output_bucket_name"
     )
 
-directories = ["E:/MMLDATASET/groove/groove_wavs/"]
-
-if __name__ == "__main__":
+directories = ["local_folder"]
+def process_local_folders():
     all_audio_files = []
 
     for dir_path in directories:
