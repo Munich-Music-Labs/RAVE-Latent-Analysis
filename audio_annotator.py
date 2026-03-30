@@ -28,7 +28,7 @@ class AudioAnnotator:
 
     def extract_pitch(self, y):
         y_tensor = torch.tensor(y, dtype=torch.float32, device=self.device).unsqueeze(0)
-        torchcrepe.predict(y_tensor)
+
         pitch, periodicity = crepe_inference_parallel.maximally_parallel_predict(y_tensor,
             self.sample_rate,
             self.hop_length,
