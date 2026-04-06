@@ -1,0 +1,52 @@
+{
+  "audio_01": {
+    "pitch_hz": 100.0,
+    "rms": 0.08,
+    "spectral_centroid_hz": 101.123
+  },
+  "audio_04": {
+    "pitch_hz": 200.0,
+    "rms": 0.45,
+    "spectral_centroid_hz": 201.483
+  },
+  "audio_07": {
+    "pitch_hz": 880.0,
+    "rms": 0.2,
+    "spectral_centroid_hz": 883.598
+  },
+  "audio_03": {
+    "pitch_hz": 200.0,
+    "rms": 0.1,
+    "spectral_centroid_hz": 259.787
+  },
+  "audio_05": {
+    "pitch_hz": 440.0,
+    "rms": 0.15,
+    "spectral_centroid_hz": 721.479
+  },
+  "audio_02": {
+    "pitch_hz": 100.0,
+    "rms": 0.25,
+    "spectral_centroid_hz": 270.635
+  },
+  "audio_08": {
+    "pitch_hz": 150.0,
+    "rms": 0.3,
+    "spectral_centroid_hz": 421.624
+  },
+  "audio_06": {
+    "pitch_hz": 440.0,
+    "rms": 0.05,
+    "spectral_centroid_hz": 1479.672
+  },
+  "audio_09": {
+    "pitch_hz": 300.0,
+    "rms": 0.12,
+    "spectral_centroid_hz": 635.893
+  },
+  "audio_10": {
+    "pitch_hz": 600.0,
+    "rms": 0.28,
+    "spectral_centroid_hz": 1878.583
+  }
+}
