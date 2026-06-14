@@ -13,6 +13,7 @@ All three use the same hop_length so their frame counts align.
 """
 
 import json
+import time
 import numpy as np
 import librosa
 import torch
@@ -77,24 +78,33 @@ def main():
     print(f"Config : CREPE {CREPE_MODEL} hop={CREPE_HOP} | "
           f"RMS frame={RMS_FRAME_LEN} | centroid n_fft={CENTROID_N_FFT}\n")
 
-    audio_files = sorted(DATASET_DIR.glob("audio_*.wav"))
+    audio_files = sorted(DATASET_DIR.glob("*.wav"))
     if not audio_files:
         print(f"No WAV files found in {DATASET_DIR}/. Run create_dataset.py first.")
         return
 
     results = {}
-    print(f"{'File':<12} {'Frames':>8} {'Pitch mean':>12} {'RMS mean':>10} {'Centroid mean':>15}")
-    print("-" * 62)
+    print(f"{'File':<12} {'Frames':>8} {'Pitch mean':>12} {'RMS mean':>10} {'Centroid mean':>15} {'Time (s)':>10}")
+    print("-" * 74)
+
+    total_start = time.perf_counter()
 
     for path in audio_files:
         name  = path.stem
+        t0    = time.perf_counter()
         feats = extract(path, device)
+        elapsed = time.perf_counter() - t0
+        feats["extraction_time_s"] = round(elapsed, 3)
         results[name] = feats
 
         p_mean = np.mean(feats["pitch_hz"])
         r_mean = np.mean(feats["rms"])
         c_mean = np.mean(feats["spectral_centroid_hz"])
-        print(f"{name:<12} {feats['n_frames']:>8}  {p_mean:>11.2f}  {r_mean:>9.4f}  {c_mean:>14.2f}")
+        print(f"{name:<12} {feats['n_frames']:>8}  {p_mean:>11.2f}  {r_mean:>9.4f}  {c_mean:>14.2f}  {elapsed:>9.2f}s")
+
+    total_elapsed = time.perf_counter() - total_start
+    print("-" * 74)
+    print(f"{'TOTAL':<12} {'':>8}  {'':>11}  {'':>9}  {'':>14}  {total_elapsed:>9.2f}s")
 
     out_path = DATASET_DIR / "extracted_features.json"
     with open(out_path, "w") as f:

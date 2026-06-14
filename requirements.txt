@@ -1,0 +1,6 @@
+# Dependencies are now managed by uv via pyproject.toml.
+# To regenerate a pip-compatible requirements file run:
+#   uv export --format requirements-txt -o requirements.txt
+google-cloud-storage
+pandas
+requests
