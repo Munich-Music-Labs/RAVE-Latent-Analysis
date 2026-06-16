@@ -16,26 +16,13 @@ uv run pytest
 # Run a single test file
 uv run pytest tests/test_download_maestro_sample.py
 
-# Run a single test by name
-uv run pytest tests/test_download_maestro_sample.py::test_stratified_sample_proportions
-
-# Feature extraction pipeline (run in order)
-python create_dataset.py          # generate 10 synthetic WAV files in dataset/
-python extract_features.py        # extract features → dataset/extracted_features.json
-python evaluate_features.py       # parameter sweep + accuracy report
-
 # Dataset downloaders (require GCS credentials)
 python scripts/download_maestro_sample.py [--limit N]
 python scripts/download_e_gmd.py [--limit N]
+python scripts/download_cocochorales.py [--limit N]
 ```
 
 ## Architecture
-
-### Feature extraction pipeline
-
-The main pipeline flows: `create_dataset.py` → `extract_features.py` → `evaluate_features.py`.
-
-`extract_features.py` is the canonical extraction entry point. It calls `crepe_inference_parallel.maximally_parallel_predict` for pitch and librosa for RMS and spectral centroid, then trims all three time series to the same frame count before saving to `dataset/extracted_features.json`. The trim is necessary because CREPE internally resamples audio to 16 kHz before framing, so its output frame count differs slightly from librosa's (which operates at the original 44.1 kHz).
 
 ### CREPE wrapper (`crepe_inference_parallel.py`)
 
